@@ -5,7 +5,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.play4fun.quarks.World;
 import com.play4fun.quarks.World.WorldListener;
@@ -110,10 +110,10 @@ public class GameScreen implements Screen {
 	}
 
 	public void draw () {
-	    GL10 gl = Gdx.graphics.getGL10();
-	    gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+	    GL20 gl = Gdx.graphics.getGL20();
+	    gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 	    gl.glClearColor(0.8f, 0.8f, 0.8f, 1);
-	    gl.glEnable(GL10.GL_TEXTURE_2D);
+	    gl.glEnable(GL20.GL_TEXTURE_2D);
 	    
 	    renderer.render();
 	}
