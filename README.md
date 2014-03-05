@@ -1,4 +1,4 @@
 QuarksGame
 ==========
 
-Game
+Libgdx Game
