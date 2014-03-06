@@ -65,24 +65,20 @@ public class GameScreen implements Screen {
 
 	public void update (float deltaTime) {
 		float total = 0.0F;
-		updateRunning(Gdx.graphics.getDeltaTime());
 		draw();
 		while (total < 0.01666667f) {
 			total += deltaTime;
+			//if(total>0.01666667F) total-=0.000005f;
 			try { Thread.sleep(11L); } catch (Exception localException1) {}
 		}
-		
+		updateRunning(Gdx.graphics.getDeltaTime());
+				
 	    
 	}
 
 	private void updateRunning (float deltaTime) {
 		ApplicationType appType = Gdx.app.getType();
 		float dt = 0;
-		while (dt < 0.01666667F) {
-			dt += deltaTime;
-			if(dt>0.01666667F) dt-=0.000005f;
-			try { Thread.sleep(11L); } catch (Exception localException1) {}
-		}
 		
 		if (appType == ApplicationType.Android ) {
 			int x = (int)(Gdx.input.getX());
@@ -101,16 +97,21 @@ public class GameScreen implements Screen {
 				else if (Gdx.input.isKeyPressed(Keys.DPAD_RIGHT)) world.quark.moveRight(deltaTime);
 					else world.quark.velocity.x *= 0.8f;
 			}
-			if ((Gdx.input.isKeyPressed(Keys.DPAD_UP) || (Gdx.input.justTouched() && Gdx.input.getDeltaX()>Gdx.app.getGraphics().getWidth()-300)) && world.quark.getState()!=Quark.QUARK_STATE_JUMP) {
+			if ((Gdx.input.isKeyPressed(Keys.X) || (Gdx.input.justTouched() && Gdx.input.getDeltaX()>Gdx.app.getGraphics().getWidth()-300)) && world.quark.getState()!=Quark.QUARK_STATE_JUMP) {
 				world.quark.Jump(8f);
 			}
+			while (dt < 0.01666667F) {
+				dt += deltaTime;
+				//if(dt>0.01666667F) dt-=0.000005f;
+				try { Thread.sleep(11L); } catch (Exception localException1) {}
+			}			
 			world.update(dt);			
 		}
 		
 	}
 
 	public void draw () {
-	    GL20 gl = Gdx.graphics.getGL20();
+		GL20 gl = Gdx.graphics.getGL20();
 	    gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 	    gl.glClearColor(0.8f, 0.8f, 0.8f, 1);
 	    gl.glEnable(GL20.GL_TEXTURE_2D);

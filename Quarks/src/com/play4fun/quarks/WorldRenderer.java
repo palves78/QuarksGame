@@ -31,10 +31,11 @@ public class WorldRenderer {
 	}
 
 	public void renderObjects () {
-/*        GL10 gl = Gdx.graphics.getGL10();
-        gl.glEnable(GL10.GL_BLEND);
-        gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
-*/        
+		/*GL20 gl = Gdx.graphics.getGL20();
+		gl.glEnable(GL20.GL_BLEND);
+		gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+		*/
+        
 		batch.enableBlending();
 		batch.begin();
 		renderQuark();
