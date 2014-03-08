@@ -10,8 +10,8 @@ public class Quark extends DynamicGameObject{
     public static final int QUARK_STATE_HIT = 2;
     public static final int QUARK_STATE_GROUNDED = 3;
     public static final int QUARK_STATE_MOVETO = 4;
-    public static final float QUARK_MOVEMENT = 25f;
-    public static final float QUARK_JUMP_VELOCITY = 32f;    
+    public static final float QUARK_MOVEMENT = 5f;
+    public static final float QUARK_JUMP_VELOCITY = 10f;    
     public static final float QUARK_MOVE_VELOCITY = 16f;
     public static final float QUARK_WIDTH = 1.5f; //32
     public static final float QUARK_HEIGHT = 1.5f;
@@ -30,8 +30,8 @@ public class Quark extends DynamicGameObject{
     }
 
     public void update(float deltaTime) {
-		velocity.add(World.gravity.x * deltaTime, World.gravity.y * deltaTime);
-    	position.add(velocity.x * deltaTime*0.9f, (velocity.y * deltaTime)*QUARK_MASS*0.9f);
+    	if(state !=QUARK_STATE_GROUNDED) velocity.add(World.gravity.x * deltaTime, World.gravity.y * deltaTime);
+    	position.add(velocity.x * deltaTime, (velocity.y * deltaTime));
 		bounds.x = position.x - bounds.width / 2;
 		bounds.y = position.y - bounds.height / 2;
         stateTime += deltaTime;
@@ -39,14 +39,14 @@ public class Quark extends DynamicGameObject{
     
 	public void Jump (float dt) {
 		state = QUARK_STATE_JUMP;
-		velocity.y = QUARK_JUMP_VELOCITY / dt;
+		velocity.add(0,10*dt);
 	}
 	
 	public void moveLeft(float dt){
-		velocity.x = -QUARK_MOVEMENT * QUARK_MOVE_VELOCITY * dt;
+		velocity.x = -QUARK_MOVEMENT;
 	}
 	public void moveRight(float dt){
-		velocity.x = QUARK_MOVEMENT * QUARK_MOVE_VELOCITY * dt;
+		velocity.x = QUARK_MOVEMENT;
 	}
 	
 	public void setState(int state){
@@ -55,19 +55,6 @@ public class Quark extends DynamicGameObject{
 	
 	public int getState(){
 		return state; 
-	}
-	
-	public void moveTo(float x, float y){
-		
-		Vector2 mouse = new Vector2(x,y);
-		Vector2 dir = mouse.sub(position);
-	    dir.nor();
-	    dir.scl(0.5f);
-	    acceleration = dir;
-	    velocity.add(dir);
-	    System.out.println(dir.x);
-	    velocity.limit(QUARK_MOVE_VELOCITY);
-	    //position.add(velocity);		
 	}
 	
 }

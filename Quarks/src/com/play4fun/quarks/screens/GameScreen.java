@@ -71,10 +71,9 @@ public class GameScreen implements Screen {
 	public void update (float deltaTime) {
 		initialTime = System.nanoTime();
 		float total = 0.0F;
-		
 		while (total < 0.01666667f) {
 			total += deltaTime;
-			try { Thread.sleep(11L); } catch (Exception localException1) {}
+			try { Thread.sleep(1L); } catch (Exception localException1) {}
 		}
 		updateRunning(Gdx.graphics.getDeltaTime());
 				
@@ -82,6 +81,7 @@ public class GameScreen implements Screen {
 	}
 
 	private void updateRunning (float deltaTime) {
+		draw();
 		ApplicationType appType = Gdx.app.getType();
 		float dt = 0;
 		
@@ -95,22 +95,23 @@ public class GameScreen implements Screen {
 			if( Gdx.input.justTouched() && x > (Gdx.app.getGraphics().getWidth()-200) && world.quark.getState()!=Quark.QUARK_STATE_JUMP) world.quark.Jump(8f);				
 			world.update(deltaTime);
 		}else{
-			if (Gdx.input.justTouched()){
-				world.quark.moveTo((float)Math.floor(Gdx.input.getX()/32), (float)Math.floor(Gdx.input.getY()/20));
-			}else{
-				if (Gdx.input.isKeyPressed(Keys.DPAD_LEFT)) world.quark.moveLeft(deltaTime);
-				else if (Gdx.input.isKeyPressed(Keys.DPAD_RIGHT)) world.quark.moveRight(deltaTime);
-					else world.quark.velocity.x *= 0.8f;
-			}
+			if (Gdx.input.isKeyPressed(Keys.DPAD_LEFT)) world.quark.moveLeft(deltaTime);
+			else if (Gdx.input.isKeyPressed(Keys.DPAD_RIGHT)) world.quark.moveRight(deltaTime);
+				else world.quark.velocity.x *= 0.9f;
 			if ((Gdx.input.isKeyPressed(Keys.X) || (Gdx.input.justTouched() && Gdx.input.getDeltaX()>Gdx.app.getGraphics().getWidth()-300)) && world.quark.getState()!=Quark.QUARK_STATE_JUMP) {
-				world.quark.Jump(8f);
+				world.quark.Jump(1f);
 			}
-			while (dt < 0.01666667F) {
-				dt += deltaTime;
-				try { Thread.sleep(11L); } catch (Exception localException1) {}
-			}			
-			world.update(dt);
-			draw();
+			float total = 0.0F;
+		      while (total < 0.01666667F)
+		      {
+		        total += Gdx.graphics.getDeltaTime();
+		        try
+		        {
+		          Thread.sleep(1L);
+		        }
+		        catch (Exception localException1) {}
+		      }
+			world.update(total);
 		}
 		
 	}
@@ -127,7 +128,8 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void render (float delta) {
-		update(delta);
+		updateRunning(delta);
+		/*update(delta);*/
 	}
 
 	@Override
