@@ -1,5 +1,7 @@
 package com.play4fun.quarks.screens;
 
+import org.lwjgl.opengl.RenderTexture;
+
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -28,8 +30,11 @@ public class GameScreen implements Screen {
 	WorldListener worldListener;
 	WorldRenderer renderer;
 	float accumulator;
+	float initialTime;
+	float elapsedTime;
 
 	public GameScreen (Game game) {
+		
 		ApplicationType appType = Gdx.app.getType();
 		if (appType == ApplicationType.Android ) {
 			FPS = 1f/120f;
@@ -64,11 +69,11 @@ public class GameScreen implements Screen {
 	}
 
 	public void update (float deltaTime) {
+		initialTime = System.nanoTime();
 		float total = 0.0F;
-		draw();
+		
 		while (total < 0.01666667f) {
 			total += deltaTime;
-			//if(total>0.01666667F) total-=0.000005f;
 			try { Thread.sleep(11L); } catch (Exception localException1) {}
 		}
 		updateRunning(Gdx.graphics.getDeltaTime());
@@ -102,10 +107,10 @@ public class GameScreen implements Screen {
 			}
 			while (dt < 0.01666667F) {
 				dt += deltaTime;
-				//if(dt>0.01666667F) dt-=0.000005f;
 				try { Thread.sleep(11L); } catch (Exception localException1) {}
 			}			
-			world.update(dt);			
+			world.update(dt);
+			draw();
 		}
 		
 	}
