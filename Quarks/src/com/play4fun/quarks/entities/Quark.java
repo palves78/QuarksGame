@@ -10,7 +10,7 @@ public class Quark extends DynamicGameObject{
     public static final int QUARK_STATE_HIT = 2;
     public static final int QUARK_STATE_GROUNDED = 3;
     public static final int QUARK_STATE_MOVETO = 4;
-    public static final float QUARK_MOVEMENT = 5f;
+    public static final float QUARK_MOVEMENT = 4f;
     public static final float QUARK_JUMP_VELOCITY = 10f;    
     public static final float QUARK_MOVE_VELOCITY = 16f;
     public static final float QUARK_WIDTH = 1.5f; //32
@@ -37,9 +37,9 @@ public class Quark extends DynamicGameObject{
         stateTime += deltaTime;
     }
     
-	public void Jump (float dt) {
+	public void Jump () {
 		state = QUARK_STATE_JUMP;
-		velocity.add(0,10*dt);
+		velocity.add(0,QUARK_JUMP_VELOCITY);
 	}
 	
 	public void moveLeft(float dt){

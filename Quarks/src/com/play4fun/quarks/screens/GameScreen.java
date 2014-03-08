@@ -1,7 +1,5 @@
 package com.play4fun.quarks.screens;
 
-import org.lwjgl.opengl.RenderTexture;
-
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -29,10 +27,8 @@ public class GameScreen implements Screen {
 	World world;
 	WorldListener worldListener;
 	WorldRenderer renderer;
-	float accumulator;
-	float initialTime;
-	float elapsedTime;
-
+	int tick=0;
+	
 	public GameScreen (Game game) {
 		
 		ApplicationType appType = Gdx.app.getType();
@@ -68,52 +64,25 @@ public class GameScreen implements Screen {
 
 	}
 
-	public void update (float deltaTime) {
-		initialTime = System.nanoTime();
-		float total = 0.0F;
-		while (total < 0.01666667f) {
-			total += deltaTime;
-			try { Thread.sleep(1L); } catch (Exception localException1) {}
-		}
-		updateRunning(Gdx.graphics.getDeltaTime());
-				
-	    
-	}
+	private void update(float deltaTime) {
+		
+		draw();	
 
-	private void updateRunning (float deltaTime) {
-		draw();
-		ApplicationType appType = Gdx.app.getType();
-		float dt = 0;
-		
-		if (appType == ApplicationType.Android ) {
-			int x = (int)(Gdx.input.getX());
-			if (!Gdx.input.isTouched()) world.quark.velocity.x *= 0.8f;
-			else{				
-				if(Gdx.input.justTouched() && x < 200) world.quark.moveLeft(deltaTime);
-				if(Gdx.input.justTouched() && x > 200 && x < 400) world.quark.moveRight(deltaTime);
-			}
-			if( Gdx.input.justTouched() && x > (Gdx.app.getGraphics().getWidth()-200) && world.quark.getState()!=Quark.QUARK_STATE_JUMP) world.quark.Jump(8f);				
-			world.update(deltaTime);
-		}else{
-			if (Gdx.input.isKeyPressed(Keys.DPAD_LEFT)) world.quark.moveLeft(deltaTime);
-			else if (Gdx.input.isKeyPressed(Keys.DPAD_RIGHT)) world.quark.moveRight(deltaTime);
-				else world.quark.velocity.x *= 0.9f;
-			if ((Gdx.input.isKeyPressed(Keys.X) || (Gdx.input.justTouched() && Gdx.input.getDeltaX()>Gdx.app.getGraphics().getWidth()-300)) && world.quark.getState()!=Quark.QUARK_STATE_JUMP) {
-				world.quark.Jump(1f);
-			}
-			float total = 0.0F;
-		      while (total < 0.01666667F)
-		      {
-		        total += Gdx.graphics.getDeltaTime();
-		        try
-		        {
-		          Thread.sleep(1L);
-		        }
-		        catch (Exception localException1) {}
-		      }
-			world.update(total);
+		if (Gdx.input.isKeyPressed(Keys.DPAD_LEFT)) world.quark.moveLeft(deltaTime);
+		else if (Gdx.input.isKeyPressed(Keys.DPAD_RIGHT)) world.quark.moveRight(deltaTime);
+			else world.quark.velocity.x *= 0.9f;
+		if ((Gdx.input.isKeyPressed(Keys.X) || (Gdx.input.justTouched() && Gdx.input.getDeltaX()>Gdx.app.getGraphics().getWidth()-300)) && world.quark.getState()!=Quark.QUARK_STATE_JUMP) {
+			world.quark.Jump();
 		}
-		
+		float total = 0.0F;
+		while (total < 0.01666667F) {
+			total += Gdx.graphics.getDeltaTime();
+			try {
+				Thread.sleep(1L);
+			} catch (Exception localException1) {
+			}
+		}
+		world.update(total);
 	}
 
 	public void draw () {
@@ -128,8 +97,7 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void render (float delta) {
-		updateRunning(delta);
-		/*update(delta);*/
+		update(delta);
 	}
 
 	@Override

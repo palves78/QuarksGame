@@ -20,8 +20,8 @@ public class WorldRenderer {
 		this.cam = new OrthographicCamera(FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
 		this.cam.position.set(FRUSTUM_WIDTH / 2, FRUSTUM_HEIGHT / 2, 0);
 		this.batch = batch;
-		quarkTexture = new Texture(Gdx.files.internal("quark_green.png"),true);
-		quarkTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		quarkTexture = new Texture(Gdx.files.internal("quark_blue.png"),true);
+		quarkTexture.setFilter(TextureFilter.Nearest, TextureFilter.Linear);
 	}
 
 	public void render () {
