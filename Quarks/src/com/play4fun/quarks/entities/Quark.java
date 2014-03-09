@@ -9,12 +9,11 @@ public class Quark extends DynamicGameObject{
     public static final int QUARK_STATE_FALL = 1;
     public static final int QUARK_STATE_HIT = 2;
     public static final int QUARK_STATE_GROUNDED = 3;
-    public static final int QUARK_STATE_MOVETO = 4;
     public static final float QUARK_MOVEMENT = 4f;
-    public static final float QUARK_JUMP_VELOCITY = 10f;    
+    public static final float QUARK_JUMP_VELOCITY = 8f;    
     public static final float QUARK_MOVE_VELOCITY = 16f;
-    public static final float QUARK_WIDTH = 1.5f; //32
-    public static final float QUARK_HEIGHT = 1.5f;
+    public static final float QUARK_WIDTH = 1.25f; //32
+    public static final float QUARK_HEIGHT = 1.25f;
     public static final float QUARK_MASS = 5f;
     
     
