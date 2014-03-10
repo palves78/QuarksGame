@@ -88,7 +88,7 @@ public class GameScreen implements Screen {
 	public void draw () {
 		GL20 gl = Gdx.graphics.getGL20();
 	    gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-	    gl.glClearColor(0.8f, 0.8f, 0.8f, 1);
+	    //gl.glClearColor(0.8f, 0.8f, 0.8f, 1);
 	    gl.glEnable(GL20.GL_TEXTURE_2D);
 	    
 	    renderer.render();
