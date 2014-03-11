@@ -22,7 +22,7 @@ public class World {
     public static final int WORLD_STATE_RUNNING = 0;
     public static final int WORLD_STATE_NEXT_LEVEL = 1;
     public static final int WORLD_STATE_GAME_OVER = 2;
-    public static final Vector2 gravity = new Vector2(0, -9.8f);
+    public static final Vector2 gravity = new Vector2(0, -8f);
     public int state;
     public Vector2 teste;
     public final Quark quark;

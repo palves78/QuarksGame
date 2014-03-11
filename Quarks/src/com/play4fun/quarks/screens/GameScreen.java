@@ -77,35 +77,25 @@ public class GameScreen implements Screen {
 
 	private void updateRunning (float deltaTime) {
 		ApplicationType appType = Gdx.app.getType();
+
+		if (Gdx.input.justTouched()){
+			world.quark.moveTo((float)Math.floor(Gdx.input.getX()/32), (float)Math.floor(Gdx.input.getY()/20));
+		}else{
+			if (Gdx.input.isKeyPressed(Keys.DPAD_LEFT)) world.quark.moveLeft(deltaTime);
+			else if (Gdx.input.isKeyPressed(Keys.DPAD_RIGHT)) world.quark.moveRight(deltaTime);
+				else world.quark.velocity.x = 0f;
+		}
+		if (Gdx.input.isKeyPressed(Keys.X) && world.quark.getState()!=Quark.QUARK_STATE_JUMP) {
+			world.quark.Jump(Gdx.graphics.getDeltaTime());
+		}
 		float dt = 0;
 		while (dt < 0.01666667F) {
 			dt += deltaTime;
 			if(dt>0.01666667F) dt-=0.000005f;
 			try { Thread.sleep(11L); } catch (Exception localException1) {}
-		}
-		
-		if (appType == ApplicationType.Android ) {
-			int x = (int)(Gdx.input.getX());
-			if (!Gdx.input.isTouched()) world.quark.velocity.x *= 0.8f;
-			else{				
-				if(Gdx.input.justTouched() && x < 200) world.quark.moveLeft(deltaTime);
-				if(Gdx.input.justTouched() && x > 200 && x < 400) world.quark.moveRight(deltaTime);
-			}
-			if( Gdx.input.justTouched() && x > (Gdx.app.getGraphics().getWidth()-200) && world.quark.getState()!=Quark.QUARK_STATE_JUMP) world.quark.Jump(8f);				
-			world.update(deltaTime);
-		}else{
-			if (Gdx.input.justTouched()){
-				world.quark.moveTo((float)Math.floor(Gdx.input.getX()/32), (float)Math.floor(Gdx.input.getY()/20));
-			}else{
-				if (Gdx.input.isKeyPressed(Keys.DPAD_LEFT)) world.quark.moveLeft(deltaTime);
-				else if (Gdx.input.isKeyPressed(Keys.DPAD_RIGHT)) world.quark.moveRight(deltaTime);
-					else world.quark.velocity.x *= 0.8f;
-			}
-			if ((Gdx.input.isKeyPressed(Keys.DPAD_UP) || (Gdx.input.justTouched() && Gdx.input.getDeltaX()>Gdx.app.getGraphics().getWidth()-300)) && world.quark.getState()!=Quark.QUARK_STATE_JUMP) {
-				world.quark.Jump(8f);
-			}
-			world.update(dt);			
-		}
+		}			
+		world.update(dt);
+	
 		
 	}
 
