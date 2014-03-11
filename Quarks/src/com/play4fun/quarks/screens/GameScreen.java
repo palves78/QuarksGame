@@ -65,15 +65,11 @@ public class GameScreen implements Screen {
 	}
 
 	private void update(float deltaTime) {
-		
-		draw();	
-
 		if (Gdx.input.isKeyPressed(Keys.DPAD_LEFT)) world.quark.moveLeft();
 		else if (Gdx.input.isKeyPressed(Keys.DPAD_RIGHT)) world.quark.moveRight();
 			else world.quark.velocity.x *= 0.9f;
-		if (Gdx.input.isKeyPressed(Keys.X) && world.quark.canJump) {
-			world.quark.Jump();
-		}
+		if (Gdx.input.isKeyPressed(Keys.X) && world.quark.canJump) world.quark.Jump();
+
 		float total = 0.0F;
 		while (total < 0.01666667F) {
 			total += Gdx.graphics.getDeltaTime();
@@ -83,12 +79,13 @@ public class GameScreen implements Screen {
 			}
 		}
 		world.update(total);
+		draw();
+		
 	}
 
 	public void draw () {
 		GL20 gl = Gdx.graphics.getGL20();
 	    gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-	    //gl.glClearColor(0.8f, 0.8f, 0.8f, 1);
 	    gl.glEnable(GL20.GL_TEXTURE_2D);
 	    
 	    renderer.render();

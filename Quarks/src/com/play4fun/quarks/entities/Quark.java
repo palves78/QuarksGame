@@ -7,11 +7,7 @@ import com.play4fun.quarks.framework.DynamicGameObject;
 
 public class Quark extends DynamicGameObject{
 	
-    public static final int QUARK_STATE_JUMP = 0;
-    public static final int QUARK_STATE_FALL = 1;
-    public static final int QUARK_STATE_HIT = 2;
-    public static final int QUARK_STATE_GROUNDED = 3;
-    public static final float QUARK_MOVEMENT = 5f;
+    public static final float QUARK_MOVEMENT = 4.5f;
     public static final float QUARK_JUMP_VELOCITY = 8f;    
     public static final float QUARK_MOVE_VELOCITY = 16f;
     public static final float QUARK_WIDTH = 1f; //32
@@ -28,8 +24,6 @@ public class Quark extends DynamicGameObject{
         super(x, y, QUARK_WIDTH, QUARK_HEIGHT);
         oldPosition = new Vector2(x,y);
         velocity.limit(QUARK_MOVE_VELOCITY);
-        state = QUARK_STATE_FALL;
-        canJump = false;
         moving = false;
     }
 
@@ -50,17 +44,15 @@ public class Quark extends DynamicGameObject{
     	// update XY position
     	position.add(velocity.x * deltaTime, velocity.y * deltaTime);
     	
-    	if(position.x < oldPosition.x) movingLeft = moving = true;
-    	else if(position.x > oldPosition.x) movingRight = moving = true;
-    	else if(position.y > oldPosition.y) movingUp = moving = true;
-    	else if(position.y < oldPosition.y) movingDown = moving = true;
+    	if(velocity.x < 0) movingLeft = moving = true;
+    	else if(velocity.x > 0) movingRight = moving = true;
+    	else if(velocity.y > 0) movingUp = moving = true;
+    	else if(velocity.y < 0) movingDown = moving = true;
     	else moving = false;
     }
     
 	public void Jump () {
 		canJump = false;
-		canDoubleJump = true;
-		state = QUARK_STATE_JUMP;
 		velocity.add(0,QUARK_JUMP_VELOCITY);
 	}
 	
@@ -69,14 +61,6 @@ public class Quark extends DynamicGameObject{
 	}
 	public void moveRight(){
 		velocity.x = QUARK_MOVEMENT;
-	}
-	
-	public void setState(int state){
-		this.state = state; 
-	}
-	
-	public int getState(){
-		return state; 
 	}
 	
 }

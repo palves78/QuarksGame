@@ -54,11 +54,17 @@ public class World {
 	}
 	
 	private void checkCollisions(){
-		if(floor.contains(quark.position)) {
-			quark.velocity.y = 0;
-			quark.position.y = quark.oldPosition.y;
-			quark.canJump = true;
-		}	
+		if(quark.moving)
+			if(floor.contains(quark.position)) {
+				quark.position.y = quark.oldPosition.y;
+				quark.canJump = true;
+				quark.velocity.y = 0;
+			}	
+		
+		if(quark.movingUp)
+			if(tile.contains(quark.position.x,quark.position.y+Quark.QUARK_HEIGHT))
+				quark.position.y = quark.oldPosition.y;
+				
 	}
 
 }
