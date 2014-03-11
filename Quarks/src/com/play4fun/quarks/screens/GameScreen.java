@@ -76,10 +76,9 @@ public class GameScreen implements Screen {
 	}
 
 	private void updateRunning (float deltaTime) {
-		ApplicationType appType = Gdx.app.getType();
-
 		if (Gdx.input.justTouched()){
-			world.quark.moveTo((float)Math.floor(Gdx.input.getX()/32), (float)Math.floor(Gdx.input.getY()/20));
+			world.quark.targetX = (float)Math.floor(Gdx.input.getX()/32);
+			world.quark.setState(Quark.QUARK_STATE_MOVETO);
 		}else{
 			if (Gdx.input.isKeyPressed(Keys.DPAD_LEFT)) world.quark.moveLeft(deltaTime);
 			else if (Gdx.input.isKeyPressed(Keys.DPAD_RIGHT)) world.quark.moveRight(deltaTime);
@@ -95,8 +94,6 @@ public class GameScreen implements Screen {
 			try { Thread.sleep(11L); } catch (Exception localException1) {}
 		}			
 		world.update(dt);
-	
-		
 	}
 
 	public void draw () {
