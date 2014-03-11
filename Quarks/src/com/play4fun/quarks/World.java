@@ -22,7 +22,7 @@ public class World {
     public static final int WORLD_STATE_RUNNING = 0;
     public static final int WORLD_STATE_NEXT_LEVEL = 1;
     public static final int WORLD_STATE_GAME_OVER = 2;
-    public static final Vector2 gravity = new Vector2(0, -20f);
+    public static final Vector2 gravity = new Vector2(0, -30f);
     public int state;
     public Vector2 teste;
     public final Quark quark;
@@ -52,7 +52,7 @@ public class World {
 	private void checkCollisions(){
 		if(quark.position.y <floor.y+floor.height) {
 			quark.position.y = floor.y+floor.height;
-			quark.setState(Quark.QUARK_STATE_GROUNDED);
+			if(quark.getState()!=Quark.QUARK_STATE_MOVETO) quark.setState(Quark.QUARK_STATE_GROUNDED);
 		}
 	}
 
