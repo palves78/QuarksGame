@@ -30,10 +30,10 @@ public class Quark extends DynamicGameObject{
     }
 
     public void update(float deltaTime) {
-		velocity.add(World.gravity.x * deltaTime, World.gravity.y * deltaTime);
+		velocity.add(0, World.gravity.y * deltaTime);
     	position.add(velocity.x * deltaTime, (velocity.y * deltaTime)*QUARK_MASS);
-		/*bounds.x = position.x - bounds.width / 2;
-		bounds.y = position.y - bounds.height / 2;*/
+		bounds.x = position.x - bounds.width / 2;
+		bounds.y = position.y - bounds.height / 2;
         stateTime += deltaTime;
     }
     
