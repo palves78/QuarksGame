@@ -1,10 +1,13 @@
 package com.play4fun.quarks;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.play4fun.quarks.entities.Quark;
 
 public class WorldRenderer {
@@ -13,6 +16,7 @@ public class WorldRenderer {
 	World world;
 	OrthographicCamera cam;
 	SpriteBatch batch;
+	ShapeRenderer debug;
 	Texture quarkTexture;
 
 	public WorldRenderer (SpriteBatch batch, World world) {
@@ -22,6 +26,7 @@ public class WorldRenderer {
 		this.batch = batch;
 		quarkTexture = new Texture(Gdx.files.internal("quark_blue.png"),true);
 		quarkTexture.setFilter(TextureFilter.Nearest, TextureFilter.Linear);
+		debug = new ShapeRenderer();
 	}
 
 	public void render () {
@@ -40,6 +45,14 @@ public class WorldRenderer {
 		batch.begin();
 		renderQuark();
 		batch.end();
+		debug.begin(ShapeType.Line);
+		debug.setProjectionMatrix(cam.combined);
+		debug.setColor(Color.RED);
+		debug.rect(world.quark.bounds.x, world.quark.bounds.y,Quark.QUARK_WIDTH,Quark.QUARK_HEIGHT);
+		debug.rect(world.floor.x,world.floor.y,world.floor.width,world.floor.height);
+		debug.rect(world.tile.x,world.tile.y,world.tile.width,world.tile.height);
+		debug.end();
+		
 	}
 
 	private void renderQuark () {

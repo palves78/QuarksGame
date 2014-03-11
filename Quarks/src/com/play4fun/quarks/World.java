@@ -28,20 +28,24 @@ public class World {
     public final Quark quark;
     public final WorldListener listener;
     public final Rectangle floor;
+    public final Rectangle tile;
     
     public TiledMap map;
 
     public World(WorldListener listener) {
-        this.quark = new Quark(0,1);
+        this.quark = new Quark(0,5);
         this.listener = listener;
         this.floor = new Rectangle(-5,0,WORLD_WIDTH+5,2);
+        this.tile = new Rectangle(2,4,1,1);
     }
 
 
 	public void update(float deltaTime) {
 		
+		
 		quark.update(deltaTime);
 		checkCollisions();
+		
 		
 	}
 	
@@ -50,10 +54,11 @@ public class World {
 	}
 	
 	private void checkCollisions(){
-		if(quark.position.y <floor.y+floor.height) {
-			quark.position.y = floor.y+floor.height;
-			quark.setState(Quark.QUARK_STATE_GROUNDED);
-		}
+		if(floor.contains(quark.position)) {
+			quark.velocity.y = 0;
+			quark.position.y = quark.oldPosition.y;
+			quark.canJump = true;
+		}	
 	}
 
 }

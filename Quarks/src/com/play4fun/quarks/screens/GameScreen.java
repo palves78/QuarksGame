@@ -68,10 +68,10 @@ public class GameScreen implements Screen {
 		
 		draw();	
 
-		if (Gdx.input.isKeyPressed(Keys.DPAD_LEFT)) world.quark.moveLeft(deltaTime);
-		else if (Gdx.input.isKeyPressed(Keys.DPAD_RIGHT)) world.quark.moveRight(deltaTime);
+		if (Gdx.input.isKeyPressed(Keys.DPAD_LEFT)) world.quark.moveLeft();
+		else if (Gdx.input.isKeyPressed(Keys.DPAD_RIGHT)) world.quark.moveRight();
 			else world.quark.velocity.x *= 0.9f;
-		if ((Gdx.input.isKeyPressed(Keys.X) || (Gdx.input.justTouched() && Gdx.input.getDeltaX()>Gdx.app.getGraphics().getWidth()-300)) && world.quark.getState()!=Quark.QUARK_STATE_JUMP) {
+		if (Gdx.input.isKeyPressed(Keys.X) && world.quark.canJump) {
 			world.quark.Jump();
 		}
 		float total = 0.0F;
