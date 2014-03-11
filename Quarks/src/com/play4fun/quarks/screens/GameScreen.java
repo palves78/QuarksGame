@@ -28,6 +28,7 @@ public class GameScreen implements Screen {
 	WorldListener worldListener;
 	WorldRenderer renderer;
 	float accumulator;
+	float time = 0;
 
 	public GameScreen (Game game) {
 		ApplicationType appType = Gdx.app.getType();
@@ -87,13 +88,13 @@ public class GameScreen implements Screen {
 		if (Gdx.input.isKeyPressed(Keys.X) && world.quark.getState()!=Quark.QUARK_STATE_JUMP) {
 			world.quark.Jump();
 		}
-		float dt = 0;
+		/*float dt = 0;
 		while (dt < 0.01666667F) {
 			dt += deltaTime;
 			if(dt>0.01666667F) dt-=0.000005f;
 			try { Thread.sleep(11L); } catch (Exception localException1) {}
-		}			
-		world.update(dt);
+		}			*/
+		world.update(deltaTime);
 	}
 
 	public void draw () {
@@ -101,13 +102,16 @@ public class GameScreen implements Screen {
 	    gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 	    gl.glClearColor(0.8f, 0.8f, 0.8f, 1);
 	    gl.glEnable(GL10.GL_TEXTURE_2D);
-	    
 	    renderer.render();
 	}
 
 
 	@Override
 	public void render (float delta) {
+		delta = Math.min(0.06f, Gdx.graphics.getDeltaTime());
+		time += delta;
+		if (time < 1f)
+			return;		
 		update(delta);
 	}
 
