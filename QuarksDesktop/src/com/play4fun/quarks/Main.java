@@ -7,7 +7,7 @@ public class Main {
 	public static void main(String[] args) {
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 		cfg.title = "Quarks";
-		cfg.useGL20 = false;
+		cfg.useGL30 = false;
 		cfg.width = 1024;
 		cfg.height = 640;
 		cfg.vSyncEnabled = true;
