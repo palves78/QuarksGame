@@ -1,9 +1,11 @@
 package com.play4fun.quarks.framework;
 
+
 public class BasicTile{
 	
 	public enum Type{SOLID};
 	private Type type;
+	
 	private int col;
 	private int row;
 	
@@ -41,16 +43,16 @@ public class BasicTile{
 		this.row = row;
 	}
 	
-	public BasicTile getTile(){
-		return this;
-	}
-	
 	public void setType(Type type){
 		this.type = type;
 	}
 	
 	public Type getType(){
 		return type;
+	}
+	
+	public BasicTile getTile(){
+		return this;
 	}
 	
 }

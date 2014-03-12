@@ -1,7 +1,5 @@
 package com.play4fun.quarks.framework;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
 public class Tile extends BasicTile {
 
 	public Tile(){
@@ -15,12 +13,5 @@ public class Tile extends BasicTile {
 	public Tile(int col, int row, Type type){
 		super(col, row, type);
 	}
-	
-	public void update(){
-		
-	}
-	
-	public void draw(SpriteBatch batch){
-		
-	}
+
 }
