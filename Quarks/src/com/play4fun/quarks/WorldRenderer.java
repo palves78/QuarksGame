@@ -15,11 +15,11 @@ public class WorldRenderer {
 	SpriteBatch batch;
 	Texture quarkTexture;
 
-	public WorldRenderer (SpriteBatch batch, World world) {
+	public WorldRenderer (World world) {
 		this.world = world;
 		this.cam = new OrthographicCamera(FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
 		this.cam.position.set(FRUSTUM_WIDTH / 2, FRUSTUM_HEIGHT / 2, 0);
-		this.batch = batch;
+		batch = new SpriteBatch();
 		quarkTexture = new Texture(Gdx.files.internal("assets/quark_green.png"),true);
 		quarkTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 	}
@@ -31,10 +31,6 @@ public class WorldRenderer {
 	}
 
 	public void renderObjects () {
-/*        GL10 gl = Gdx.graphics.getGL10();
-        gl.glEnable(GL10.GL_BLEND);
-        gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
-*/        
 		batch.enableBlending();
 		batch.begin();
 		renderQuark();

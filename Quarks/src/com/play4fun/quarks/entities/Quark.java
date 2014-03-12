@@ -10,23 +10,20 @@ public class Quark extends DynamicGameObject{
     public static final int QUARK_STATE_HIT = 2;
     public static final int QUARK_STATE_GROUNDED = 3;
     public static final int QUARK_STATE_MOVETO = 4;
-    public static final float QUARK_MOVEMENT = 5f;
-    public static final float QUARK_JUMP_VELOCITY = 2.5f;    
-    public static final float QUARK_MOVE_VELOCITY = 16f;
-    public static final float QUARK_WIDTH = 1f;
-    public static final float QUARK_HEIGHT = 1f;
-    public static final float QUARK_MASS = 5f;
+
+    public static final float QUARK_WIDTH = 1.5f;
+    public static final float QUARK_HEIGHT = 1.5f;
     
-	static final float ACCELERATION = 20f;
-	static final float JUMP_VELOCITY = 10f;
+	static final float ACCELERATION = 25f;
+	static final float JUMP_VELOCITY = 14f;
 	static final float GRAVITY = 20.0f;
-	static final float MAX_VEL = 6f;
-	public static final float DAMP = 0.90f;    
+	static final float MAX_VEL = 9f;
+	public static final float DAMP = 0.9f;    
     
     
     int state;
     float stateTime;
-    Vector2 accel;
+    public Vector2 accel;
     public float targetX = 0;
     
     public Quark(float x, float y) {
@@ -45,12 +42,9 @@ public class Quark extends DynamicGameObject{
 		if (velocity.x > MAX_VEL) velocity.x = MAX_VEL;
 		if (velocity.x < -MAX_VEL) velocity.x = -MAX_VEL;
 		velocity.scl(deltaTime);
-		
-		if (state == QUARK_STATE_MOVETO) moveTo();
-		if (state == QUARK_STATE_MOVETO && velocity.x<=0) {velocity.x=0;state = QUARK_STATE_GROUNDED;} 
 		position.x += velocity.x;
 		position.y += velocity.y;
-		velocity.scl(1.0f / deltaTime);
+		velocity.scl(1f / deltaTime);
 		
     }
     
@@ -59,10 +53,10 @@ public class Quark extends DynamicGameObject{
 		velocity.y = JUMP_VELOCITY;
 	}
 	
-	public void moveLeft(float dt){
+	public void moveLeft(){
 		accel.x = ACCELERATION * -1;
 	}
-	public void moveRight(float dt){
+	public void moveRight(){
 		accel.x = ACCELERATION * 1;
 	}
 	

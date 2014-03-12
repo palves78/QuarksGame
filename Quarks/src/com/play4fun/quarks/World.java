@@ -26,14 +26,12 @@ public class World {
     public int state;
     public Vector2 teste;
     public final Quark quark;
-    public final WorldListener listener;
     public final Rectangle floor;
     
     public TiledMap map;
 
-    public World(WorldListener listener) {
+    public World() {
         this.quark = new Quark(0,1);
-        this.listener = listener;
         this.floor = new Rectangle(-5,0,WORLD_WIDTH+5,1);
     }
 

@@ -1,6 +1,5 @@
 package com.play4fun.quarks.screens;
 
-import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -13,16 +12,7 @@ import com.play4fun.quarks.WorldRenderer;
 import com.play4fun.quarks.entities.Quark;
 
 public class GameScreen implements Screen {
-	static final int GAME_READY = 0;
-	static final int GAME_RUNNING = 1;
-	static final int GAME_PAUSED = 2;
-	static final int GAME_LEVEL_END = 3;
-	static final int GAME_OVER = 4;
-	
-	Game game;
 
-	int state;
-	float FPS;
 	SpriteBatch batcher;
 	World world;
 	WorldListener worldListener;
@@ -31,88 +21,28 @@ public class GameScreen implements Screen {
 	float time = 0;
 
 	public GameScreen (Game game) {
-		ApplicationType appType = Gdx.app.getType();
-		if (appType == ApplicationType.Android ) {
-			FPS = 1f/120f;
-		}else{
-			FPS = 1f/60f;
-		}
 
-		this.game = game;
-
-		state = GAME_READY;
-		batcher = new SpriteBatch();
-		worldListener = new WorldListener() {
-			@Override
-			public void jump () {
-			}
-
-			@Override
-			public void highJump () {
-			}
-
-			@Override
-			public void hit () {
-			}
-
-			@Override
-			public void coin () {
-			}
-		};
-		world = new World(worldListener);
-		renderer = new WorldRenderer(batcher, world);
-
-	}
-
-	public void update (float deltaTime) {
-		float total = 0.0F;
-		updateRunning(Gdx.graphics.getDeltaTime());
-		draw();
-		while (total < 0.01666667f) {
-			total += deltaTime;
-			try { Thread.sleep(11L); } catch (Exception localException1) {}
-		}
+		world = new World();
+		renderer = new WorldRenderer(world);
 		
-	    
+		Gdx.gl.glEnable(GL20.GL_TEXTURE_2D);
+		Gdx.gl.glDisable(GL20.GL_CULL_FACE);
+		Gdx.gl.glDisable(GL20.GL_DEPTH_TEST);		
+
 	}
 
-	private void updateRunning (float deltaTime) {
-		if (Gdx.input.justTouched()){
-			world.quark.targetX = (float)Math.floor(Gdx.input.getX()/32);
-			world.quark.setState(Quark.QUARK_STATE_MOVETO);
-		}else{
-			if (Gdx.input.isKeyPressed(Keys.DPAD_LEFT)) world.quark.moveLeft(deltaTime);
-			else if (Gdx.input.isKeyPressed(Keys.DPAD_RIGHT)) world.quark.moveRight(deltaTime);
-				else world.quark.velocity.x *= Quark.DAMP;
-		}
-		if (Gdx.input.isKeyPressed(Keys.X) && world.quark.getState()!=Quark.QUARK_STATE_JUMP) {
-			world.quark.Jump();
-		}
-		/*float dt = 0;
-		while (dt < 0.01666667F) {
-			dt += deltaTime;
-			if(dt>0.01666667F) dt-=0.000005f;
-			try { Thread.sleep(11L); } catch (Exception localException1) {}
-		}			*/
-		world.update(deltaTime);
+	private void processInput (float deltaTime) {
+		if (Gdx.input.isKeyPressed(Keys.DPAD_LEFT)) world.quark.moveLeft();
+		else if (Gdx.input.isKeyPressed(Keys.DPAD_RIGHT)) world.quark.moveRight();
+		else world.quark.velocity.x *= Quark.DAMP;
+		if (Gdx.input.isKeyPressed(Keys.X) && world.quark.getState()!=Quark.QUARK_STATE_JUMP) world.quark.Jump();
+
 	}
 
 	public void draw () {
-	    GL20 gl = Gdx.graphics.getGL20();
-	    gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-	    gl.glClearColor(0.8f, 0.8f, 0.8f, 1);
-	    gl.glEnable(GL20.GL_TEXTURE_2D);
+	    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+	    Gdx.gl.glClearColor(0f, 0.3f, 0.8f, 1);    
 	    renderer.render();
-	}
-
-
-	@Override
-	public void render (float delta) {
-		delta = Math.min(0.06f, Gdx.graphics.getDeltaTime());
-		time += delta;
-		if (time < 1f)
-			return;		
-		update(delta);
 	}
 
 	@Override
@@ -138,4 +68,14 @@ public class GameScreen implements Screen {
 	@Override
 	public void dispose () {
 	}
+
+	@Override
+	public void render(float delta) {
+		
+		processInput(delta);
+		world.update(delta);
+		draw();
+		
+	}
+	
 }
