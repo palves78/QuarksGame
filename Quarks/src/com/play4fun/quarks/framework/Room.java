@@ -12,15 +12,11 @@ public class Room {
 		room = new char[cols][rows];
 		inicialize();
 	}
-	
-	/* Creates a room with all 4 solid edges */ 
+	 
 	private void inicialize(){
 		for(int row = 0; row < rows; row++)
 			for(int col = 0; col < cols; col++){
-				room[col][row] = ' ';
-				/*
-				if(row==0 || row==(rows-1) || col==0 || col==(cols-1)) room[col][row] = '1';
-				else room[col][row] = ' ';*/
+				room[col][row] = '0';
 			}
 	}
 	
@@ -50,7 +46,7 @@ public class Room {
 		
 		for(int row = 0; row < rows; row++){
 			for(int col = 0; col < cols; col++){
-				room[col][row] = v[index+col]>0 ? '1' : ' ';
+				room[col][row] = v[index+col]>0 ? '1' : '0';
 			}
 			if (isEmpty(v,index,length)) row=rows;
 			
@@ -61,7 +57,7 @@ public class Room {
 		
 		for(int row = rows-1; row > 0; row--){
 			for(int col = 0; col < cols; col++){
-				room[col][row] = v[index+col]>0 ? '1' : ' ';
+				room[col][row] = v[index+col]>0 ? '1' : '0';
 			}
 			if (isEmpty(v,index,length)) row=0;
 			

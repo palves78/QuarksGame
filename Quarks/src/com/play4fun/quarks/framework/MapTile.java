@@ -4,8 +4,7 @@ public class MapTile {
 
 	private Tile[][] map;
 	
-	public MapTile(){
-		
-		map = new Tile[3][3];
+	public MapTile(int roomsCol, int roomsRow, int roomWidth, int roomHeight){
+		Level level = new Level(roomsCol,roomsRow,roomWidth,roomHeight);
 	}
 }
