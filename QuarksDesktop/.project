@@ -14,6 +14,8 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+<<<<<<< HEAD
+=======
 	<linkedResources>
 		<link>
 			<name>assets1</name>
@@ -21,4 +23,5 @@
 			<location>C:/Users/Pedro/Documents/GitHub/QuarksGame/Quarks-android/assets</location>
 		</link>
 	</linkedResources>
+>>>>>>> casa
 </projectDescription>
