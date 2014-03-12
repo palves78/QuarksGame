@@ -10,8 +10,8 @@ public class Level {
 	private int[] ground;
 	
 	
-	private int cols;
-	private int rows;
+	int cols;
+	int rows;
 	private int roomRows;
 	private int roomCols;
 	
@@ -30,8 +30,8 @@ public class Level {
 			for(int col = 0; col < cols; col++)
 				level[col][row] = new Room(roomCols,roomRows);
 		
-		generateGroundCeiling(ceiling,4,3);
-		generateGroundCeiling(ground,3,5);
+		generateGroundCeiling(ceiling,3,3);
+		generateGroundCeiling(ground,5,3);
 		populateRooms();
 	}
 	
@@ -58,7 +58,7 @@ public class Level {
 		
 	}
 	
-	private Room getRoom(int row, int col){
+	public Room getRoom(int row, int col){
 		
 		return level[row][col];
 	}
@@ -66,7 +66,7 @@ public class Level {
 	private void populateRooms(){
 		
 		int index = 0;
-		int length = 10;
+		int length = 32;
 		
 		for(int row = 0; row < rows; row++)
 			for(int col = 0; col < cols; col++){
@@ -99,7 +99,7 @@ public class Level {
 			
 			if (accumulator < groundLength){
 				length = randNumer.nextInt(l)+1;
-				height = randNumer.nextInt(h);
+				height = randNumer.nextInt(h)+1;
 				accumulator += length;
 				if(accumulator > groundLength){ length=groundLength-(accumulator-length); i = groundLength;}
 				for(int j=0;j<length;j++){

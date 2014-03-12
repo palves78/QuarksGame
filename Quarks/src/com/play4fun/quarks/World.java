@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Rectangle;
 import com.play4fun.quarks.entities.Quark;
+import com.play4fun.quarks.framework.MapTile;
 
 public class World {
 
@@ -17,6 +18,7 @@ public class World {
         quark = new Quark(0,10);
         quark.setGravity(0f,-30f);
         floor = new Rectangle(-5,0,WORLD_WIDTH+5,1);
+        MapTile novoMapa = new MapTile(1,1,32,18);
     }
 
 	public void update(float deltaTime) {
