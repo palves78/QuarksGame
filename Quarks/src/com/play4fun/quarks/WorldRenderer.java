@@ -36,7 +36,7 @@ public class WorldRenderer {
 		batch.setProjectionMatrix(cam.combined);
 		renderObjects();
 		//cam.translate(world.quark.position.x,world.quark.position.y);
-		cam.position.set(world.quark.position.x,world.quark.position.y,0);
+		//cam.position.set(world.quark.position.x,world.quark.position.y,0);
 	}
 
 	public void renderObjects () {
@@ -56,6 +56,7 @@ public class WorldRenderer {
 		batchDebug.end();
 		
 		batch.begin();
+		world.novoMapa.draw(batch);
 		renderQuark();
 		batch.end();
 

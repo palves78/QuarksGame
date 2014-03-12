@@ -4,7 +4,7 @@ package com.play4fun.quarks.framework;
 public class BasicTile{
 	
 	public static enum Type{EMPTY,SOLID};
-	private char type;
+	private Type type;
 	
 	private int col;
 	private int row;
@@ -17,7 +17,7 @@ public class BasicTile{
 		set(col,row);
 	}
 	
-	public BasicTile(int col, int row, char type){
+	public BasicTile(int col, int row, Type type){
 		set(col,row);
 		this.type = type;
 	}
@@ -43,11 +43,11 @@ public class BasicTile{
 		this.row = row;
 	}
 	
-	public void setType(char c){
-		this.type = c;
+	public void setType(Type type){
+		this.type = type;
 	}
 	
-	public char getType(){
+	public Type getType(){
 		return type;
 	}
 	

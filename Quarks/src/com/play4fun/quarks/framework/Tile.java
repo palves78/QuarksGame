@@ -10,7 +10,7 @@ public class Tile extends BasicTile {
 		super(col, row);
 	}
 	
-	public Tile(int col, int row, char type){
+	public Tile(int col, int row, Type type){
 		super(col, row, type);
 	}
 
