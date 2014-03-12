@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.play4fun.quarks.entities.Quark;
 
 public class WorldRenderer {
@@ -21,7 +20,7 @@ public class WorldRenderer {
 		this.cam = new OrthographicCamera(FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
 		this.cam.position.set(FRUSTUM_WIDTH / 2, FRUSTUM_HEIGHT / 2, 0);
 		this.batch = batch;
-		quarkTexture = new Texture(Gdx.files.internal("quark_green.png"),true);
+		quarkTexture = new Texture(Gdx.files.internal("assets/quark_green.png"),true);
 		quarkTexture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 	}
 
