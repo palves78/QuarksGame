@@ -10,8 +10,8 @@ public class Main {
 		cfg.useGL30 = false;
 		cfg.width = 1024;
 		cfg.height = 640;
-		cfg.vSyncEnabled = true;
-		cfg.foregroundFPS=0;
+		cfg.vSyncEnabled = false;
+		cfg.foregroundFPS=1000;
 		new LwjglApplication(new QuarksGame(), cfg);
 	}
 }

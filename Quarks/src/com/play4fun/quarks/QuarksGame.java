@@ -20,6 +20,7 @@ public class QuarksGame extends Game {
 	public void dispose() {
 		super.dispose();
 		getScreen().dispose();
+		Assets.manager.dispose();
 	}
 
 	@Override
@@ -29,13 +30,16 @@ public class QuarksGame extends Game {
 
 	@Override
 	public void resize(int width, int height) {
+		super.resize(width, height);
 	}
 
 	@Override
 	public void pause() {
+		super.pause();
 	}
 
 	@Override
 	public void resume() {
+		super.resume();
 	}
 }
