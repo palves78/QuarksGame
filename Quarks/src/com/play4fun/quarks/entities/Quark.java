@@ -1,7 +1,6 @@
 package com.play4fun.quarks.entities;
 
 import com.badlogic.gdx.math.Vector2;
-import com.play4fun.quarks.World;
 import com.play4fun.quarks.framework.DynamicGameObject;
 
 public class Quark extends DynamicGameObject{
@@ -16,7 +15,6 @@ public class Quark extends DynamicGameObject{
     
 	static final float ACCELERATION = 25f;
 	static final float JUMP_VELOCITY = 14f;
-	static final float GRAVITY = 20.0f;
 	static final float MAX_VEL = 9f;
 	public static final float DAMP = 0.9f;    
     
@@ -35,7 +33,7 @@ public class Quark extends DynamicGameObject{
 
     public void update(float deltaTime) {
     	
-		accel.y = World.gravity.y;
+		accel.y = gravity;
 		accel.scl(deltaTime);
 		velocity.add(accel.x, accel.y);
 		if (accel.x == 0) velocity.x *= DAMP;

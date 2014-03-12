@@ -7,7 +7,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.play4fun.quarks.World;
-import com.play4fun.quarks.World.WorldListener;
 import com.play4fun.quarks.WorldRenderer;
 import com.play4fun.quarks.entities.Quark;
 
@@ -15,7 +14,6 @@ public class GameScreen implements Screen {
 
 	SpriteBatch batcher;
 	World world;
-	WorldListener worldListener;
 	WorldRenderer renderer;
 	float accumulator;
 	float time = 0;
@@ -25,7 +23,6 @@ public class GameScreen implements Screen {
 		world = new World();
 		renderer = new WorldRenderer(world);
 		
-		Gdx.gl.glEnable(GL20.GL_TEXTURE_2D);
 		Gdx.gl.glDisable(GL20.GL_CULL_FACE);
 		Gdx.gl.glDisable(GL20.GL_DEPTH_TEST);		
 
