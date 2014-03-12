@@ -21,14 +21,6 @@ public class Room {
 			}
 	}
 	
-	public int getRoomCols(){
-		return cols;
-	}
-	
-	public int geRows(){
-		return rows;
-	}
-	
 	public void showRoom(){
 		for(int row = 0; row < rows; row++){
 			for(int col = 0; col < cols; col++){
@@ -77,5 +69,14 @@ public class Room {
 	public char getValue(int col, int row) {
 		return room[col][row];
 	}
+
+	public int getCols() {
+		return cols;
+	}
+	
+	
+	public int getRows(){
+		return rows;
+	}	
 	
 }

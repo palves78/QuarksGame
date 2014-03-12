@@ -22,7 +22,7 @@ public class WorldRenderer {
 	public WorldRenderer (World world) {
 		this.world = world;
 		this.cam = new OrthographicCamera(FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
-		this.cam.position.set(FRUSTUM_WIDTH / 2, (FRUSTUM_HEIGHT / 2)-3, 0);
+		this.cam.position.set(FRUSTUM_WIDTH / 2, (FRUSTUM_HEIGHT / 2), 0);
 		batch = new SpriteBatch();
 		batchDebug = new ShapeRenderer();
 		batchDebug.setColor(Color.RED);
