@@ -3,3 +3,4 @@
 # Package Files #
 *.war
 *.ear
+Quarks-android/bin/jarlist.cache
