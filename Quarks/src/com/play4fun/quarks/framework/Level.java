@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Level {
 
-	private Room[][] level;
+	private Room[][] rooms;
 	
 	private int[] ceiling;
 	private int[] ground;
@@ -17,29 +17,30 @@ public class Level {
 	
 	public Level(int levelCols, int levelRows, int roomCols, int roomRows){
 		
-		this.cols = levelCols;
-		this.rows = levelRows;
+		cols = levelCols;
+		rows = levelRows;
 		this.roomCols = roomCols;
 		this.roomRows = roomRows;
 		
-		level = new Room[levelCols][levelRows];
+		rooms = new Room[roomCols][roomRows];
 		ceiling = new int[roomCols * cols * rows];
 		ground = new int[roomCols * cols * rows];
 		
 		for(int row = 0; row < rows; row++)
 			for(int col = 0; col < cols; col++)
-				level[col][row] = new Room(roomCols,roomRows);
+				rooms[col][row] = new Room(roomCols,roomRows);
 		
-		generateGroundCeiling(ceiling,3,3);
-		generateGroundCeiling(ground,5,3);
-		populateRooms();
+		generateGroundCeiling(ceiling,1,2,0,2);
+		generateGroundCeiling(ground,1,2,0,2);
+		
+		populateRooms(roomCols);
 	}
 	
 	public void showLevel(){
 		for(int row = 0; row < rows; row++){
 			for(int rr = 0; rr < roomRows ; rr++ ){
 				for(int col = 0; col < cols; col++){
-					level[col][row].showRoomCols(rr);
+					rooms[col][row].showRoomCols(rr);
 					
 				}
 				System.out.println("");
@@ -60,13 +61,12 @@ public class Level {
 	
 	public Room getRoom(int row, int col){
 		
-		return level[row][col];
+		return rooms[row][col];
 	}
 	
-	private void populateRooms(){
+	private void populateRooms(int length){
 		
 		int index = 0;
-		int length = 32;
 		
 		for(int row = 0; row < rows; row++)
 			for(int col = 0; col < cols; col++){
@@ -87,19 +87,19 @@ public class Level {
 		System.out.println("Room " + (room+1) + " located at (" + col + "," + row + ")");
 	}
 
-	public void generateGroundCeiling(int[] ceiling,int l, int h){
+	public void generateGroundCeiling(int[] ceiling,int minl, int maxl, int minh,int maxh){
 		
 		int groundLength = roomCols * cols * rows;
 		int accumulator = 0;
-		int length = 0;
-		int height = 0;
+		int length;
+		int height;
+		
 		int col =0;
 		for(int i = 0; i < groundLength; i++ ){
-			Random randNumer = new Random();	
-			
+			Random randNumer = new Random();
 			if (accumulator < groundLength){
-				length = randNumer.nextInt(l)+1;
-				height = randNumer.nextInt(h)+1;
+				length = minl + randNumer.nextInt(maxl);
+				height = minh + randNumer.nextInt(maxh);
 				accumulator += length;
 				if(accumulator > groundLength){ length=groundLength-(accumulator-length); i = groundLength;}
 				for(int j=0;j<length;j++){

@@ -12,12 +12,18 @@ public class MapTile {
 	private Level level;
 	private int colSize;
 	private int rowSize;
+	private int roomWidth;
+	private int roomHeight;
 	private Texture block;
 	
 	public MapTile(int roomsCol, int roomsRow, int roomWidth, int roomHeight) {
 
 		colSize = roomsCol * roomWidth;
 		rowSize = roomsRow * roomHeight;
+		this.roomWidth = roomWidth;
+		this.roomHeight = roomHeight;
+		
+		map = new Tile[colSize][rowSize];
 
 		level = new Level(roomsCol, roomsRow, roomWidth, roomHeight);
 		createMap(level);
@@ -27,16 +33,28 @@ public class MapTile {
 	}
 
 	private void createMap(Level level) {
-
-		map = new Tile[colSize][rowSize];
-		for (int mapR = 0; mapR < rowSize; mapR++)
-			for (int mapC = 0; mapC < colSize; mapC++)
-				for (int row = 0; row < level.rows; row++)
-					for (int col = 0; col < level.cols; col++) {
-						Room r = level.getRoom(col, row);
+		int mapC=0;
+		int mapR=0;
+		int col=0;
+		int row=0;
+		for(int roomRow=0; roomRow < level.rows; roomRow++){
+			for(int roomCol=0; roomCol < level.cols; roomCol++){
+				Room r = level.getRoom(roomCol, roomRow);
+				for(row=0; row < r.getRows(); row++){
+					for(col=0; col < r.getCols(); col++){
+						Type t = r.getValue(col, row)=='1' ? Type.SOLID : Type.EMPTY;
+						System.out.println(mapC+","+mapR);
 						map[mapC][mapR] = new Tile(mapC, mapR);
-						map[mapC][mapR].setType(r.getValue(mapC, mapR)=='1' ? Type.SOLID : Type.EMPTY);
+						map[mapC][mapR].setType(t);
+						mapC++;
 					}
+					mapR++;
+				}
+				mapC+=col;
+				mapR=0;
+			}
+			if(mapC+1>colSize) mapC=0;
+		}
 	}
 
 	public void draw(SpriteBatch batch) {

@@ -20,7 +20,7 @@ public class World {
         quark = new Quark(0,10);
         quark.setGravity(0f,-30f);
         floor = new Rectangle(-5,0,WORLD_WIDTH+5,1);
-        novoMapa = new MapTile(1,1,32,18);
+        novoMapa = new MapTile(4,4,8,5);
     }
 
 	public void update(float deltaTime) {
