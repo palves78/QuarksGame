@@ -3,6 +3,8 @@ package com.play4fun.quarks.framework;
 public class Room {
 
 	private char[][] room;
+	public int[] ceilling;
+	public int[] ground;	
 	private int cols;
 	private int rows;
 	
@@ -10,10 +12,11 @@ public class Room {
 		this.cols = cols;
 		this.rows = rows;
 		room = new char[cols][rows];
+		ceilling = new int[cols];
+		ground = new int[cols];
 		inicialize();
 	}
 	
-	/* Creates a room with all 4 solid edges */ 
 	private void inicialize(){
 		for(int row = 0; row < rows; row++)
 			for(int col = 0; col < cols; col++){
@@ -35,36 +38,35 @@ public class Room {
 		}
 	}	
 	
-	public void fillCeiling(int[] v, int index, int length){
+	public void fillCeiling(int[] ceil){
 		
 		for(int row = 0; row < rows; row++){
 			for(int col = 0; col < cols; col++){
-				room[col][row] = v[index+col]>0 ? '1' : '0';
+				room[col][row] = ceil[col]>0 ? '1' : '0';
 			}
-			if (isEmpty(v,index,length)) row=rows;
-			
-		}		
+			if (isEmpty(ceil)) row=rows;
+		}
 	}
 	
-	public void fillGround(int[] v, int index, int length){
+	public void fillGround(int[] ground){
 		
 		for(int row = rows-1; row > 0; row--){
 			for(int col = 0; col < cols; col++){
-				room[col][row] = v[index+col]>0 ? '1' : '0';
+				room[col][row] = ground[col]>0 ? '1' : '0';
 			}
-			if (isEmpty(v,index,length)) row=0;
+			if (isEmpty(ground)) row=0;
+		}
 			
-		}		
-	}	
+	}
 	
-	private boolean isEmpty(int[] v, int index,int length){
+	private boolean isEmpty(int[] v){
 		int total = 0;
-		for(int i=index; i < (index+length); i++){
+		for(int i=0; i < cols; i++){
 			total += v[i];
 			v[i] = v[i]>0 ? (v[i]-1):0;
 		}
 		return (total > 0) ? false : true;
-	}
+	}	
 
 	public char getValue(int col, int row) {
 		return room[col][row];
