@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 
 public class MapTile {
 
@@ -36,6 +37,10 @@ public class MapTile {
 	
 	public int getCellType(int x, int y){
 		return map[x][y];
+	}
+	
+	public Rectangle getCell(int x, int y){
+		return new Rectangle(x,y,1f,1f);
 	}
 	
 }
