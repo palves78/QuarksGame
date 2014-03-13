@@ -20,7 +20,7 @@ public class Room {
 	private void inicialize(){
 		for(int row = 0; row < rows; row++)
 			for(int col = 0; col < cols; col++){
-				room[col][row] = '0';
+				room[col][row] = ' ';
 			}
 	}
 	
@@ -42,7 +42,7 @@ public class Room {
 		
 		for(int row = 0; row < rows; row++){
 			for(int col = 0; col < cols; col++){
-				room[col][row] = ceil[col]>0 ? '1' : '0';
+				room[col][row] = ceil[col]>0 ? '1' : ' ';
 			}
 			if (isEmpty(ceil)) row=rows;
 		}
@@ -52,7 +52,7 @@ public class Room {
 		
 		for(int row = rows-1; row > 0; row--){
 			for(int col = 0; col < cols; col++){
-				room[col][row] = ground[col]>0 ? '1' : '0';
+				room[col][row] = ground[col]>0 ? '1' : ' ';
 			}
 			if (isEmpty(ground)) row=0;
 		}

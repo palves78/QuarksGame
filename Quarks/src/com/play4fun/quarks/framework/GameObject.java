@@ -5,12 +5,13 @@ import com.badlogic.gdx.math.Vector2;
 
 public class GameObject {
 	public final Vector2 position;
-	public final Vector2 previous;
-	public final Rectangle bounds;
+	public final Rectangle bounds = new Rectangle();
 
 	public GameObject (float x, float y, float width, float height) {
 		this.position = new Vector2(x, y);
-		this.previous = position;
-		this.bounds = new Rectangle(x - width / 2, y - height / 2, width, height);
+		this.bounds.width = width;
+		this.bounds.height = height;
+		this.bounds.x = x + 0.2f;
+		this.bounds.y = y;
 	}
 }

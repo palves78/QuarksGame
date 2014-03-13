@@ -2,8 +2,6 @@ package com.play4fun.quarks.framework;
 
 import java.util.Random;
 
-import com.play4fun.quarks.framework.BasicTile.Type;
-
 public class Level {
 
 	private Room[][] rooms;
@@ -25,25 +23,36 @@ public class Level {
 		for(int row = 0; row < rows; row++)
 			for(int col = 0; col < cols; col++){
 				rooms[col][row] = new Room(roomCols,roomRows);
-				generateGroundCeiling(rooms[col][row].ceilling,0,3,0,3);
-				generateGroundCeiling(rooms[col][row].ground,0,3,0,3);
+				generateGroundCeiling(rooms[col][row].ceilling,1,1,1,1);
+				generateGroundCeiling(rooms[col][row].ground,1,5,1,3);
 			}		
 		populateRooms();
 	}
 	
-	public void FillLevel(Tile[][] map){
-		int r=0;
+	public void FillLevel(int[][] map){
+		int r=(rows*roomRows)-1;
 		int c=0;
 		for(int row = 0; row < rows; row++){
 			for(int rr = 0; rr < roomRows ; rr++ ){
 				for(int col = 0; col < cols; col++){
 					for(int col1 = 0; col1 < roomCols; col1++){
-						map[c][r].setType(rooms[col][row].getValue(col1, rr)=='1' ? Type.SOLID : Type.EMPTY);
+						map[c][r] = rooms[col][row].getValue(col1, rr)=='1' ? 1 : 0;
 						c++;
 					}
 				}
-				r+=1;
+				r-=1;
 				c=0;
+			}
+		}
+	}
+	
+	public void showLevel(){
+		for(int row = 0; row < rows; row++){
+			for(int rr = 0; rr < roomRows ; rr++ ){
+				for(int col = 0; col < cols; col++){
+					rooms[col][row].showRoomCols(rr);
+				}
+				System.out.println("");
 			}
 		}
 	}

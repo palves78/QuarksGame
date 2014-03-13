@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.play4fun.quarks.entities.Quark;
 
 public class WorldRenderer {
@@ -36,34 +35,20 @@ public class WorldRenderer {
 		batch.setProjectionMatrix(cam.combined);
 		renderObjects();
 		//cam.translate(world.quark.position.x,world.quark.position.y);
-		//cam.position.set(world.quark.position.x,world.quark.position.y,0);
+		cam.position.set(world.quark.position.x,world.quark.position.y,0);
 	}
 
 	public void renderObjects () {
-		batch.enableBlending();
-
-		batchDebug.begin(ShapeType.Filled);
-		batchDebug.setProjectionMatrix(cam.combined);
-		//batchDebug.rect((float)Math.floor(world.quark.position.x-Quark.QUARK_WIDTH/2),(float)Math.floor(world.quark.position.y-Quark.QUARK_HEIGHT/2),1f,1f);
-		//Left
-		batchDebug.rect((float)Math.floor(world.quark.position.x+Quark.QUARK_WIDTH),(float)Math.floor(world.quark.position.y+Quark.QUARK_HEIGHT/2),1f,1f);
-		//Bottom
-		batchDebug.rect((float)Math.floor(world.quark.position.x),(float)Math.floor(world.quark.position.y-Quark.QUARK_HEIGHT),1f,1f);
-		//Right
-		batchDebug.rect((float)Math.floor(world.quark.position.x-Quark.QUARK_WIDTH),(float)Math.floor(world.quark.position.y+Quark.QUARK_HEIGHT/2),1f,1f);
-		//Top
-		batchDebug.rect((float)Math.floor(world.quark.position.x),(float)Math.floor(world.quark.position.y+Quark.QUARK_HEIGHT),1f,1f);
-		batchDebug.end();
-		
+		batch.enableBlending();		
 		batch.begin();
-		world.novoMapa.draw(batch);
+		world.map.draw(batch);
 		renderQuark();
 		batch.end();
 
 	}
 
 	private void renderQuark () {
-		batch.draw(quarkTexture, world.quark.position.x, world.quark.position.y,Quark.QUARK_WIDTH,Quark.QUARK_HEIGHT);		
+		batch.draw(quarkTexture, world.quark.position.x, world.quark.position.y,Quark.WIDTH,Quark.HEIGHT);		
 	}
 
 }

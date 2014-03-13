@@ -4,11 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.play4fun.quarks.framework.BasicTile.Type;
 
 public class MapTile {
 
-	private Tile[][] map;
+	private int[][] map;
 	private Level level;
 	private int colSize;
 	private int rowSize;
@@ -18,9 +17,9 @@ public class MapTile {
 
 		colSize = roomsCol * roomWidth;
 		rowSize = roomsRow * roomHeight;
-		map = new Tile[colSize][rowSize];
+		map = new int[colSize][rowSize];
 		for(int j=0; j< rowSize; j++)
-			for(int i=0; i< colSize; i++) map[i][j]=new Tile(i,j);
+			for(int i=0; i< colSize; i++) map[i][j]=0;
 		level = new Level(roomsCol, roomsRow, roomWidth, roomHeight);
 		level.FillLevel(map);
 		block = new Texture(Gdx.files.internal("assets/quark_blue.png"),true);
@@ -31,8 +30,12 @@ public class MapTile {
 	public void draw(SpriteBatch batch) {
 		for (int mapR = 0; mapR < rowSize; mapR++)
 			for (int mapC = 0; mapC < colSize; mapC++)
-				if (map[mapC][mapR].getType() == Type.SOLID)
-					batch.draw(block, map[mapC][mapR].getCol(),
-							map[mapC][mapR].getRow(), 1f, 1f);
+				if (map[mapC][mapR] == 1)
+					batch.draw(block, mapC,mapR, 1f, 1f);
 	}
+	
+	public int getCellType(int x, int y){
+		return map[x][y];
+	}
+	
 }

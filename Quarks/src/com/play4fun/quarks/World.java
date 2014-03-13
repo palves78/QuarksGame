@@ -10,17 +10,17 @@ public class World {
 
     public static final float WORLD_WIDTH = 32f;
     public static final float WORLD_HEIGHT = 20f;
-    public final  MapTile novoMapa;
+    public final  MapTile map;
     public final Quark quark;
     
     public final Rectangle floor;
     private float accum;
 
     public World() {
-        quark = new Quark(0,10);
+        quark = new Quark(2,10);
         quark.setGravity(0f,-30f);
         floor = new Rectangle(-5,0,WORLD_WIDTH+5,1);
-        novoMapa = new MapTile(4,4,8,5);
+        map = new MapTile(1,1,32,20);
     }
 
 	public void update(float deltaTime) {
@@ -42,15 +42,17 @@ public class World {
 			quark.moveRight();
 		else
 			quark.velocity.x *= Quark.DAMP;
-		if (Gdx.input.isKeyPressed(Keys.X) && quark.getState() != Quark.QUARK_STATE_JUMP)
+		if (Gdx.input.isKeyPressed(Keys.X) && !quark.isState(Quark.JUMP) && !quark.isState(Quark.GROUND))
 			quark.Jump();
 
 	}
 	
 	private void checkCollisions(){
-		if(quark.previous.y < 1) {
-			quark.position.y = 1;
-			quark.setState(Quark.QUARK_STATE_GROUNDED);
+		if(quark.accel.y < 0 && map.getCellType((int)Math.floor(quark.position.x),(int)Math.ceil(quark.position.y))==1){
+			quark.position.y=(int)Math.floor(quark.previousY);
+			quark.velocity.y=0;
+			quark.accel.y=0;
+			quark.setState(Quark.GROUND);
 		}
 	}
 

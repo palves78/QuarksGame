@@ -4,14 +4,14 @@ import com.badlogic.gdx.math.Vector2;
 import com.play4fun.quarks.framework.DynamicGameObject;
 
 public class Quark extends DynamicGameObject{
-    public static final int QUARK_STATE_JUMP = 0;
-    public static final int QUARK_STATE_FALL = 1;
-    public static final int QUARK_STATE_HIT = 2;
-    public static final int QUARK_STATE_GROUNDED = 3;
-    public static final int QUARK_STATE_MOVETO = 4;
+    public static final int JUMP = 0;
+    public static final int FALL = 1;
+    public static final int HIT = 2;
+    public static final int GROUND = 3;
+    public static final int MOVETO = 4;
 
-    public static final float QUARK_WIDTH = 1f;
-    public static final float QUARK_HEIGHT = 1f;
+    public static final float WIDTH = 1.25f;
+    public static final float HEIGHT = 1.25f;
     
 	static final float ACCELERATION = 25f;
 	static final float JUMP_VELOCITY = 14f;
@@ -20,17 +20,19 @@ public class Quark extends DynamicGameObject{
     
     int state;
     private Vector2 target;
+    public float previousX=0;
+    public float previousY=0;
     
     public Quark(float x, float y) {
-        super(x, y, QUARK_WIDTH, QUARK_HEIGHT);
-        state = QUARK_STATE_FALL;
+        super(x, y, WIDTH*0.8f, HEIGHT);
+        state = FALL;
         target = new Vector2(); 
     }
 
     public void update(float deltaTime) {
     	
-    	previous.x = position.x;
-    	previous.y = position.y;
+    	previousX = bounds.x-0.2f;
+    	previousY = bounds.y;
     	
 		accel.y = gravity.y;
 		accel.x = accel.x+gravity.x;
@@ -40,14 +42,18 @@ public class Quark extends DynamicGameObject{
 		if (velocity.x > MAX_VEL) velocity.x = MAX_VEL;
 		if (velocity.x < -MAX_VEL) velocity.x = -MAX_VEL;
 		velocity.scl(deltaTime);
-		position.x += velocity.x;
-		position.y += velocity.y;
+		
+		bounds.x += velocity.x;
+		bounds.y += velocity.y;
+		position.x = bounds.x - 0.2f;
+		position.y = bounds.y;		
+		
 		velocity.scl(1f / deltaTime);
 		
     }
     
 	public void Jump () {
-		state = QUARK_STATE_JUMP;
+		state = JUMP;
 		velocity.y = JUMP_VELOCITY;
 	}
 	
@@ -78,6 +84,10 @@ public class Quark extends DynamicGameObject{
 	    dir.scl(0.5f);
 	    accel.x = dir.x;
 	    velocity.x += accel.x;
+	}
+	
+	public boolean isState(int state){
+		return this.state==state;
 	}
 	
 }
